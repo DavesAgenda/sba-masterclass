@@ -131,3 +131,21 @@ export const steps: TutorialStep[] = [
     },
   },
 ];
+export const agentReadiness = {
+  title: "Help agents read and use your site.",
+  introduction: "Your visitors may arrive with an AI assistant. Give it clear text, useful links and buttons it can understand, so it can help people find what they need.",
+  preparation: [
+    "Ask Codex to make the important information readable without clicking through animations or watching a video.",
+    "Give pages clear headings, links descriptive names, and forms proper labels. Keep the written guide alongside interactive content.",
+    "Ask Codex to check page addresses, the sitemap and crawler settings. Keep private information private.",
+  ],
+  scanTitle: "Check the published site with Is Agentic",
+  scanIntroduction: "An extra check after the masterclass: use Vercel’s Is Agentic tool once your website is public. Ask Codex to help with the scan and explain the report.",
+  actions: [
+    "Open is-agentic.com, enter your live website address and select Score. Use the public address, not localhost or a preview that needs a sign-in.",
+    "Give Codex the report link. Ask it to check the evidence and start with failed Essential checks that apply to your site.",
+    "Have Codex prepare fixes in a preview. Review them, publish the approved changes, then scan the same live address again.",
+  ],
+  note: "The score is a useful check, not a promise that every agent will succeed. Do not add a made-up API or agent service just to chase a score. An llms.txt file can help describe your content, but does not guarantee discovery.",
+  url: "https://is-agentic.com/",
+};

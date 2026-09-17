@@ -8,6 +8,10 @@ was preserved; six separate excerpt compositions were created for the guide.
 
 ## Editorial decisions
 
+- Add a supplementary post-launch agent readiness check using https://is-agentic.com/.
+  This is an extra workflow, not claimed as a recorded demonstration. Share its
+  preparation, scan steps and prompt across the book, guide and prompt library.
+
 - Follow ChatGPT planning and design references → Codex brief → preview and feedback
   → GitHub → Vercel → domain. Include the later branch/preview/merge update cycle.
 - Teach what the learner asks and checks. Codex handled local servers, checks and Git

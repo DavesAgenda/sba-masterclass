@@ -15,7 +15,13 @@ Run the checks, fix errors and tell me what to review.
 Explain any steps I need to do in plain English.`;
 
 export type Prompt = { title: string; description: string; text: string };
+export const agentReadinessPrompt: Prompt = {
+  title: "Check my published site for AI agents",
+  description: "Use after publishing. Replace the address with your live website URL.",
+  text: "Review my published site at [live website URL] for AI agents. Help me run it through https://is-agentic.com/ and read the report. If you cannot start the scan, tell me how to run it and ask for the report link. Verify the findings, explain the important gaps in plain English, and fix relevant Essential issues on a feature branch. Check that agents can read the main content and use links and forms. Do not expose private content or invent APIs or services. Show me a preview to approve, then help publish the fixes and rescan the live site. Report what improved and what remains.",
+};
 export const prompts: Prompt[] = [
+  // Keep the existing book prompt indices stable; the post-launch prompt is appended below.
   {
     title: "Improve the mobile layout",
     description: "Give the small screen the same care.",
@@ -51,4 +57,5 @@ export const prompts: Prompt[] = [
     description: "Use after reviewing the preview. In the stream, main was the branch Vercel published to the live site.",
     text: "I have checked the preview and am happy with it. Merge this change to main and clean up the feature branch. Confirm the live deployment succeeds and give me the website address to check.",
   },
+  agentReadinessPrompt,
 ];

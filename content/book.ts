@@ -9,6 +9,8 @@ export type BookPageKind =
   | "deploy"
   | "domain"
   | "dns"
+  | "agent-ready"
+  | "agent-scan"
   | "updates"
   | "publish-update"
   | "webinar"
@@ -85,6 +87,18 @@ export const bookPages: BookPage[] = [
     title: "Your address. Your website.",
   },
   {
+    kind: "agent-ready",
+    chapter: "AFTER LAUNCH",
+    label: "HELP AI ASSISTANTS HELP VISITORS",
+    title: "Make your site useful to agents.",
+  },
+  {
+    kind: "agent-scan",
+    chapter: "CHECK THE LIVE SITE",
+    label: "SCAN. FIX. CHECK AGAIN.",
+    title: "Ask an agent to check it.",
+  },
+  {
     kind: "updates",
     chapter: "AFTER LAUNCH",
     label: "PREVIEW BEFORE PUBLISHING",
@@ -135,9 +149,9 @@ export const bookPages: BookPage[] = [
 ];
 export const bookNavigation = [
   { label: "How it works", page: 1, hash: "how-it-works" },
-  { label: "Watch", page: 12, hash: "webinar" },
-  { label: "Prompts", page: 13, hash: "prompts" },
-  { label: "About", page: 17, hash: "about" },
+  { label: "Watch", page: 14, hash: "webinar" },
+  { label: "Prompts", page: 15, hash: "prompts" },
+  { label: "About", page: 19, hash: "about" },
 ];
 
 // Concise book instructions keep a full step legible on a single printed page.

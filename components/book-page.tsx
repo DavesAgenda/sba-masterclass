@@ -18,8 +18,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { bookPages, bookInstructions } from "@/content/book";
-import { starterPrompt, prompts } from "@/content/prompts";
-import { steps } from "@/content/tutorial";
+import { starterPrompt, prompts, agentReadinessPrompt } from "@/content/prompts";
+import { steps, agentReadiness } from "@/content/tutorial";
 import { siteConfig, youtubeEmbedUrl } from "@/lib/site-config";
 import { CopyBlock } from "./prompt-card";
 import { LessonVideo } from "./lesson-video";
@@ -91,7 +91,7 @@ export function BookPageContent({
             </span>
           </div>
           <div className="book-actions">
-            <button className="book-button orange" onClick={() => navigate(12)}>
+            <button className="book-button orange" onClick={() => navigate(14)}>
               <Play aria-hidden="true" size={16} />
               Watch the webinar
             </button>
@@ -305,6 +305,26 @@ export function BookPageContent({
               Connect your own domain
             </li>
           </ul>
+        </>
+      )}
+      {kind === "agent-ready" && (
+        <>
+          <p className="book-deck">{agentReadiness.introduction}</p>
+          <ol className="book-instructions">
+            {agentReadiness.preparation.map((item) => <li key={item}>{item}</li>)}
+          </ol>
+          <p className="book-note">{agentReadiness.note}</p>
+          <Link className="book-source" href="/guide#agent-readiness">Read the agent readiness steps <ArrowUpRight aria-hidden="true" size={14} /></Link>
+        </>
+      )}
+      {kind === "agent-scan" && (
+        <>
+          <p className="book-deck">{agentReadiness.scanIntroduction}</p>
+          <ol className="book-instructions">
+            {agentReadiness.actions.map((item) => <li key={item}>{item}</li>)}
+          </ol>
+          <CopyBlock text={agentReadinessPrompt.text} label="Ask Codex after publishing" />
+          <a className="book-source" href={agentReadiness.url} target="_blank" rel="noreferrer">Open Is Agentic <ArrowUpRight aria-hidden="true" size={14} /></a>
         </>
       )}
       {kind === "updates" && (

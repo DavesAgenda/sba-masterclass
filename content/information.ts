@@ -1,5 +1,5 @@
-import { steps } from "./tutorial";
-import { prompts, starterPrompt } from "./prompts";
+import { steps, agentReadiness } from "./tutorial";
+import { prompts, starterPrompt, agentReadinessPrompt } from "./prompts";
 import { siteConfig } from "@/lib/site-config";
 import { lessonClips, type LessonClip } from "./video";
 
@@ -168,6 +168,20 @@ export const informationPages: InformationPage[] = [
             : []),
         ],
       })),
+        {
+          id: "agent-readiness",
+          title: agentReadiness.title,
+          paragraphs: [agentReadiness.introduction],
+          items: agentReadiness.preparation,
+        },
+        {
+          id: "agent-scan",
+          title: agentReadiness.scanTitle,
+          paragraphs: [agentReadiness.scanIntroduction, agentReadiness.note],
+          items: agentReadiness.actions,
+          code: agentReadinessPrompt.text,
+          links: [{ label: "Check your site with Is Agentic", href: agentReadiness.url }],
+        },
         {
           id: "updates",
           title: "After launch: preview a change, then make it live",
