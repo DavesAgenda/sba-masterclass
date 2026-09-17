@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       "prompts",
       "faq",
       "agents",
+      "contact",
+      "privacy",
     ];
     return pages.map((page) => ({
       source: page ? `/${page}` : "/",

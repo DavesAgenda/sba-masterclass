@@ -4,6 +4,8 @@ export const siteConfig = {
   attribution: "Valid Agenda",
   validAgendaUrl: "https://www.validagenda.com/",
   validAgendaBookingUrl: "https://www.validagenda.com/book",
+  contactEmail: "help@validagenda.com",
+  privacyUrl: "https://www.validagenda.com/privacy",
   description:
     "Learn how to build a website with an AI coding agent, publish it to GitHub, deploy it with Vercel and connect your own domain.",
   webinarUrl: "https://www.youtube.com/watch?v=W12o95rBnCA",

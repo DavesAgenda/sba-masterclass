@@ -52,6 +52,8 @@ The interactive book teaches five stages from the recorded masterclass: plan in 
 
 - [About Sites by Agents](${siteUrl}/about.md): The educational project and its connection to Valid Agenda.
 - [Get help](${siteUrl}/get-help.md): Support when DIY feels overwhelming and fractional technology advice for the next business challenge.
+- [Contact](${siteUrl}/contact.md): Contact the publisher or report a problem.
+- [Privacy](${siteUrl}/privacy.md): Hosting, videos and external services.
 - [Valid Agenda](${siteConfig.validAgendaUrl}): Official service information.
 - [Book a conversation](${siteConfig.validAgendaBookingUrl}): Discuss scope, availability and fees directly.
 
@@ -78,6 +80,8 @@ This is an educational site, not an autonomous agent service. The guide is free 
 
 - [About](${siteUrl}/about.md): Sites by Agents and Valid Agenda.
 - [Get help](${siteUrl}/get-help.md): Help with DIY builds and fractional technology advice beyond the website.
+- [Contact](${siteUrl}/contact.md): Publisher contact and privacy enquiries.
+- [Privacy](${siteUrl}/privacy.md): How the educational site handles information.
 
 ## Optional
 

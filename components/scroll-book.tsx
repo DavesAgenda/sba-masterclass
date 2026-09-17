@@ -398,7 +398,7 @@ export function ScrollBook() {
         </div>
         <footer className="book-site-footer">
           <ValidAgendaLogo />
-          <nav aria-label="Site information"><Link href="/about">About</Link><Link href="/guide">Written guide</Link><Link href="/get-help">Get help ↗</Link><Link href="/agents">For agents</Link></nav>
+          <nav aria-label="Site information"><Link href="/about">About</Link><Link href="/guide">Written guide</Link><Link href="/get-help">Get help ↗</Link><Link href="/agents">For agents</Link><Link href="/contact">Contact</Link><Link href="/privacy">Privacy</Link></nav>
         </footer>
       </div>
     </div>

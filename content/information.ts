@@ -23,6 +23,36 @@ export type InformationPage = {
 
 export const informationPages: InformationPage[] = [
   {
+    slug: "contact", label: "Contact", eyebrow: "CONTACT THE PUBLISHER",
+    title: "Talk to Valid Agenda.",
+    description: "Contact Valid Agenda about Sites by Agents, a problem with the guide, or help with your next website project.",
+    sections: [
+      { title: "Questions about this guide", paragraphs: [
+        "Sites by Agents is an educational project by Valid Agenda Pty Ltd, led by Dave Pengelley. If you spot an unclear instruction, a broken link or a problem playing a lesson, tell us which page you were using and what happened. Include the public page address and the device or browser you were using so we can understand the issue.",
+      ], links: [{ label: "Email help@validagenda.com", href: `mailto:${siteConfig.contactEmail}` }] },
+      { title: "Help with your project", paragraphs: [
+        "For advice about a build or wider technology decisions, use Valid Agenda’s booking page. Bring your goal, what you have tried and where you are stuck. Any paid work, scope, availability and fees are agreed separately; reading this guide does not create a service agreement. Do not include passwords, API keys or private customer information in an enquiry.",
+      ], links: [{ label: "Book a conversation", href: siteConfig.validAgendaBookingUrl }, { label: "Support options", href: "/get-help" }] },
+      { title: "Privacy questions", paragraphs: ["Use the same email address for questions about personal information or to request access or correction. The privacy page explains how this educational site works and links to the publisher’s policy."], links: [{ label: "Read the privacy information", href: "/privacy" }] },
+    ],
+  },
+  {
+    slug: "privacy", label: "Privacy", eyebrow: "HOW THIS SITE WORKS",
+    title: "Privacy on Sites by Agents.",
+    description: "How this educational site, embedded videos and external contact links handle information, with a route to Valid Agenda’s privacy policy.",
+    sections: [
+      { title: "Reading the guide", paragraphs: [
+        "You can read Sites by Agents without an account or submitting a contact form. The site is hosted on Vercel. Loading pages makes requests to the hosting service, which receives technical information such as your IP address, browser details and requested URLs to deliver the site. The site’s application code does not include a separate analytics tracker or advertising script.",
+      ] },
+      { title: "Videos and other websites", paragraphs: [
+        "Lesson videos load a YouTube player only after you choose to load them. The player uses youtube-nocookie.com; loading or playing a video still connects your browser to YouTube, whose own privacy terms apply. You can instead use the written lessons. Links to GitHub, Vercel, Is Agentic and other services take you to websites operated under their own policies.",
+      ], links: [{ label: "Google and YouTube privacy policy", href: "https://policies.google.com/privacy" }] },
+      { title: "Contact and booking", paragraphs: [
+        "If you email Valid Agenda or follow its booking link, you choose what information to share through those services. Avoid sending passwords, API keys or confidential customer data. Valid Agenda’s published privacy policy covers its handling of personal information, service providers and requests for access or correction. This page describes the educational site; it does not replace that policy.",
+      ], links: [{ label: "Valid Agenda privacy policy", href: siteConfig.privacyUrl }, { label: "Privacy enquiries: help@validagenda.com", href: `mailto:${siteConfig.contactEmail}` }] },
+    ],
+  },
+  {
     slug: "about",
     label: "About",
     eyebrow: "THE IDEA BEHIND THE BOOK",
@@ -311,6 +341,7 @@ export const informationPages: InformationPage[] = [
         title: "Start here",
         paragraphs: [
           "The same guide, prompts and information pages are available as server-rendered HTML and Markdown. No account, browser automation or page-turn interaction is needed to read them.",
+          "Request a normal page URL with Accept: text/markdown for its Markdown representation, or use its explicit .md link. HTML remains the default. Missing page URLs return HTTP 404 with a Markdown recovery message when that format is requested.",
         ],
         links: [
           { label: "llms.txt — concise content index", href: "/llms.txt" },
