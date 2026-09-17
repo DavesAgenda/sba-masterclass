@@ -42,8 +42,11 @@ export const informationPages: InformationPage[] = [
     description: "How this educational site, embedded videos and external contact links handle information, with a route to Valid Agenda’s privacy policy.",
     sections: [
       { title: "Reading the guide", paragraphs: [
-        "You can read Sites by Agents without an account or submitting a contact form. The site is hosted on Vercel. Loading pages makes requests to the hosting service, which receives technical information such as your IP address, browser details and requested URLs to deliver the site. The site’s application code does not include a separate analytics tracker or advertising script.",
+        "You can read Sites by Agents without an account or submitting a contact form. The site is hosted on Vercel. Loading pages makes requests to the hosting service, which receives technical information such as your IP address, browser details and requested URLs to deliver the site.",
       ] },
+      { title: "Google Analytics", paragraphs: [
+        "The live site uses Google Analytics to understand visits and how people use the guide. Google’s tag can collect page views, referral information, browser and device information, and interactions enabled in the Analytics settings. It can use cookies to distinguish visits. Requests go to Google, whose privacy policy explains its handling of that information. Browser privacy controls and tracking blockers may limit collection.",
+      ], links: [{ label: "How Google uses information from partner sites", href: "https://policies.google.com/technologies/partner-sites" }] },
       { title: "Videos and other websites", paragraphs: [
         "Lesson videos load a YouTube player only after you choose to load them. The player uses youtube-nocookie.com; loading or playing a video still connects your browser to YouTube, whose own privacy terms apply. You can instead use the written lessons. Links to GitHub, Vercel, Is Agentic and other services take you to websites operated under their own policies.",
       ], links: [{ label: "Google and YouTube privacy policy", href: "https://policies.google.com/privacy" }] },

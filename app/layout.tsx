@@ -3,6 +3,7 @@ import { siteConfig, siteUrl } from "@/lib/site-config";
 import "./book.css";
 import { StructuredData } from "@/components/structured-data";
 import { socialImage } from "@/lib/social-metadata";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 const title = "Sites by Agents - Build and Launch Your Own Website";
 export const metadata: Metadata = {
@@ -71,6 +72,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );
