@@ -7,6 +7,8 @@ import {
   useSyncExternalStore,
 } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ValidAgendaLogo } from "./valid-agenda-logo";
 import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 import { bookPages, bookNavigation } from "@/content/book";
 import { BookPageContent } from "./book-page";
@@ -322,8 +324,8 @@ export function ScrollBook() {
           </button>
         </div>
         <footer className="book-site-footer">
-          <span>Practical education for a more open, independent web.</span>
-          <span>Built with an agent. Owned by a human.</span>
+          <ValidAgendaLogo />
+          <nav aria-label="Site information"><Link href="/about">About</Link><Link href="/guide">Written guide</Link><Link href="/get-help">Get help ↗</Link><Link href="/agents">For agents</Link></nav>
         </footer>
       </div>
     </div>

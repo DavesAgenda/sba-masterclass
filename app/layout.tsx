@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { siteConfig, siteUrl } from "@/lib/site-config";
 import "./book.css";
+import { StructuredData } from "@/components/structured-data";
 
 const title = "Sites by Agents - Build and Launch Your Own Website";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description: siteConfig.description,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "text/markdown": `${siteUrl}/index.md` },
+  },
   openGraph: {
     title,
     description: siteConfig.description,
@@ -23,7 +27,35 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
+      </head>
       <body>
+        <StructuredData
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Organization",
+                "@id": `${siteConfig.validAgendaUrl}#organization`,
+                name: "Valid Agenda",
+                url: siteConfig.validAgendaUrl,
+                logo: `${siteUrl}/images/valid-agenda-color.svg`,
+              },
+              {
+                "@type": "WebSite",
+                "@id": `${siteUrl}/#website`,
+                name: siteConfig.name,
+                url: siteUrl,
+                description: siteConfig.description,
+                inLanguage: "en",
+                publisher: {
+                  "@id": `${siteConfig.validAgendaUrl}#organization`,
+                },
+              },
+            ],
+          }}
+        />
         <a className="skip-link" href="#main">
           Skip to content
         </a>

@@ -8,6 +8,22 @@ The page displays one book in a sticky viewport. Native document scrolling advan
 
 The reader uses no animation library. The chapter sequence lives in `content/book.ts`. The book is interactive and requires JavaScript for page navigation.
 
+## Information pages and Valid Agenda
+
+The book footer links to `/about`, `/guide`, `/get-help` and `/agents`. Information-page navigation also includes `/prompts` and `/faq`. These are ordinary, server-rendered reading pages, available without JavaScript. Copy controls are progressively enhanced.
+
+The official Valid Agenda logo appears in white on navy surfaces. Its provenance and requested colour adaptation are recorded in `BRAND.md`. Referral and booking URLs live in `lib/site-config.ts`. The get-help page covers both assistance with an overwhelming DIY build and fractional technology/AI advice beyond the website.
+
+## Agent-readable content
+
+`/llms.txt`, `/llms-full.txt`, `/index.md` and Markdown versions of all six information pages are generated at build time. HTML and HTTP Link headers advertise these resources. The sitemap includes every HTML information route; JSON-LD describes the site, publisher, pages and visible FAQ content.
+
+Edit `content/information.ts`, `content/tutorial.ts` and `content/prompts.ts` to keep HTML and Markdown aligned. See `AGENT-RESOURCES.md` for endpoint details and design decisions. Against a running production preview, run:
+
+```sh
+npm run verify:agents -- http://localhost:3002
+```
+
 ## Local setup and development
 
 Install Node.js 20.9 or newer (a current LTS release is recommended). Open a terminal in this directory:

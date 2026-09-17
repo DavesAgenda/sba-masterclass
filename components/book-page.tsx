@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -451,6 +452,8 @@ export function BookPageContent({
           <button className="book-button orange" onClick={() => navigate(2)}>
             Start building your site <ArrowRight aria-hidden="true" size={17} />
           </button>
+          <Link className="book-source book-advice-link" href="/get-help">Overwhelmed, or ready for more? Talk to Valid Agenda <ArrowUpRight aria-hidden="true" size={16} /></Link>
+          <Link className="book-source" href="/about">About this project <ArrowUpRight aria-hidden="true" size={14} /></Link>
           <p className="handwritten">
             Your next chapter
             <br />
