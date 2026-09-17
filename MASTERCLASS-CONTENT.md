@@ -18,8 +18,9 @@ was preserved; six separate excerpt compositions were created for the guide.
 - Avoid teaching model names, quota figures or deployment speed as requirements.
 - DNS values are project-specific. The deliberate deletion of demo records is not
   a required learner step. Preserve unrelated records, especially email.
-- Descript clips are published as unlisted links for embedding. Use permanent share
-  IDs, not expiring download URLs. The full YouTube replay remains available.
+- The six clips are published as unlisted YouTube videos. Both book and written
+  guide use those embeds and watch links. Descript remains the editing source;
+  the full YouTube replay remains available. IDs are recorded in content/video.ts.
 
 ## Exact source ranges and new compositions
 
