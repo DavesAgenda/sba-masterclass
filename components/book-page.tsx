@@ -18,10 +18,12 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { bookPages, bookInstructions } from "@/content/book";
-import { starterPrompt, prompts } from "@/content/prompts";
-import { steps } from "@/content/tutorial";
+import { starterPrompt, prompts, agentReadinessPrompt } from "@/content/prompts";
+import { steps, agentReadiness } from "@/content/tutorial";
 import { siteConfig, youtubeEmbedUrl } from "@/lib/site-config";
 import { CopyBlock } from "./prompt-card";
+import { LessonVideo } from "./lesson-video";
+import { lessonClips } from "@/content/video";
 
 export function BookPageContent({
   page,
@@ -35,6 +37,8 @@ export function BookPageContent({
   const data = bookPages[page];
   if (!data) return null;
   const kind = data.kind;
+  const clipKey = ({ process: "tools", brief: "prompt", github: "github", deploy: "deploy", domain: "domain", "publish-update": "updates" } as Record<string, string>)[kind];
+  const clip = clipKey ? lessonClips[clipKey] : undefined;
   const step = steps.find(
     (s) =>
       s.id ===
@@ -62,8 +66,8 @@ export function BookPageContent({
       {kind === "intro" && (
         <>
           <p className="book-lead">
-            A practical, step-by-step guide based on our live webinar. Learn the
-            process, try the prompts and publish your site.
+            Follow the recorded masterclass, from idea to live site. You choose
+            the design and review the result. Codex handles the technical work.
           </p>
           <div className="book-mini-flow">
             <span>
@@ -87,7 +91,7 @@ export function BookPageContent({
             </span>
           </div>
           <div className="book-actions">
-            <button className="book-button orange" onClick={() => navigate(10)}>
+            <button className="book-button orange" onClick={() => navigate(14)}>
               <Play aria-hidden="true" size={16} />
               Watch the webinar
             </button>
@@ -127,7 +131,7 @@ export function BookPageContent({
                         {s.name === "Prompt"
                           ? "Your idea + an agent"
                           : s.name === "Build"
-                            ? "Your local project"
+                            ? "Codex builds and previews"
                             : s.name === "Deploy"
                               ? "Vercel"
                               : s.name === "Domain"
@@ -164,8 +168,8 @@ export function BookPageContent({
           </ol>
           {kind === "build" && (
             <CopyBlock
-              text={"npm install\nnpm run dev"}
-              label="In your project folder"
+              text={step.snippet!}
+              label="Ask Codex"
             />
           )}
           {kind === "brief" && (
@@ -286,6 +290,7 @@ export function BookPageContent({
             Follow the full process, from prompt to domain.
           </p>
           <BookVideo decorative={decorative} />
+          <Link className="book-source" href="/guide#clips">Watch the short clips with the written guide <ArrowUpRight aria-hidden="true" size={14} /></Link>
           <ul className="book-checks">
             <li>
               <Check aria-hidden="true" />
@@ -300,6 +305,45 @@ export function BookPageContent({
               Connect your own domain
             </li>
           </ul>
+        </>
+      )}
+      {kind === "agent-ready" && (
+        <>
+          <p className="book-deck">{agentReadiness.introduction}</p>
+          <ol className="book-instructions">
+            {agentReadiness.preparation.map((item) => <li key={item}>{item}</li>)}
+          </ol>
+          <p className="book-note">{agentReadiness.note}</p>
+          <Link className="book-source" href="/guide#agent-readiness">Read the agent readiness steps <ArrowUpRight aria-hidden="true" size={14} /></Link>
+        </>
+      )}
+      {kind === "agent-scan" && (
+        <>
+          <p className="book-deck">{agentReadiness.scanIntroduction}</p>
+          <ol className="book-instructions">
+            {agentReadiness.actions.map((item) => <li key={item}>{item}</li>)}
+          </ol>
+          <CopyBlock text={agentReadinessPrompt.text} label="Ask Codex after publishing" />
+          <a className="book-source" href={agentReadiness.url} target="_blank" rel="noreferrer">Open Is Agentic <ArrowUpRight aria-hidden="true" size={14} /></a>
+        </>
+      )}
+      {kind === "updates" && (
+        <>
+          <p className="book-deck">A feature branch is a separate version of your site to try a change. Your live site stays as it is while you review.</p>
+          <ol className="book-instructions">
+            <li>Tell Codex what you want changed. In the stream, Dave added the logo and information pages.</li>
+            <li>Ask Codex to create a feature branch, make the changes, check them and save the branch to GitHub.</li>
+            <li>Open that branch’s preview in Vercel. Read it and try the links on a phone and a computer.</li>
+            <li>Ask for fixes until you are happy. Then turn the page to publish.</li>
+          </ol>
+          <CopyBlock text={prompts[5].text} label="Ask Codex for a preview" />
+        </>
+      )}
+      {kind === "publish-update" && (
+        <>
+          <p className="book-deck">In this project, main is the version Vercel puts on the live website. You decide when the preview is ready to replace it.</p>
+          <CopyBlock text={prompts[6].text} label="After you have checked the preview" />
+          <p className="book-note">Wait for Vercel to finish publishing. Open your real website address and check the result there too.</p>
         </>
       )}
       {["mobile", "design", "preflight"].includes(kind) && (
@@ -389,15 +433,15 @@ export function BookPageContent({
       {kind === "tools" && (
         <>
           <p className="book-deck">
-            These are examples, not permanent vendor choices. The useful model
-            is agent → Git → host → domain.
+            The stream used ChatGPT to plan, Codex to build, GitHub to save
+            the files, and Vercel to put the site online.
           </p>
           <dl className="book-tools">
             {[
               [
                 "Build",
-                "Codex / Claude Code",
-                "A coding agent helps you write and refine the site.",
+                "Codex",
+                "Builds, runs the preview and handles GitHub work after connection.",
               ],
               ["Source", "GitHub", "Your source files and version history."],
               ["Host", "Vercel", "Publishes the website for visitors."],
@@ -430,8 +474,8 @@ export function BookPageContent({
       {kind === "about" && (
         <>
           <p className="book-lead">
-            Start with one useful page. Improve it, commit it, push it. Your
-            website can grow with you.
+            Start with one useful page. Ask Codex for changes, review the
+            preview, then ask it to publish the update.
           </p>
           <div className="about-mark">
             <Box aria-hidden="true" size={60} strokeWidth={1} />
@@ -454,6 +498,7 @@ export function BookPageContent({
           </button>
           <Link className="book-source book-advice-link" href="/get-help">Overwhelmed, or ready for more? Talk to Valid Agenda <ArrowUpRight aria-hidden="true" size={16} /></Link>
           <Link className="book-source" href="/about">About this project <ArrowUpRight aria-hidden="true" size={14} /></Link>
+          <Link className="book-source" href="/guide#updates">How to update your live site <ArrowUpRight aria-hidden="true" size={14} /></Link>
           <p className="handwritten">
             Your next chapter
             <br />
@@ -461,6 +506,7 @@ export function BookPageContent({
           </p>
         </>
       )}
+      {clip && <LessonVideo clip={clip} compact decorative={decorative} />}
       <div className="page-bottom">
         <span>{String(page + 1).padStart(2, "0")}</span>
         <span>SITES BY AGENTS</span>

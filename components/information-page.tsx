@@ -5,6 +5,7 @@ import { siteConfig, siteUrl } from "@/lib/site-config";
 import { ValidAgendaLogo } from "./valid-agenda-logo";
 import { CopyBlock } from "./prompt-card";
 import { StructuredData } from "./structured-data";
+import { LessonVideo } from "./lesson-video";
 
 export function informationMetadata(slug: string): Metadata {
   const page = informationPage(slug);
@@ -94,7 +95,7 @@ export function InformationPageView({ slug }: { slug: string }) {
         )}
         <div className="information-sections">
           {page.sections.map((section, index) => (
-            <section key={section.title} aria-labelledby={`section-${index}`}>
+            <section id={section.id} key={section.title} aria-labelledby={`section-${index}`}>
               <span className="information-number" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
               </span>
@@ -113,6 +114,7 @@ export function InformationPageView({ slug }: { slug: string }) {
                 {section.code && (
                   <CopyBlock text={section.code} label={section.title} />
                 )}
+                {section.video && <LessonVideo clip={section.video} />}
                 {section.links && (
                   <div className="information-links">
                     {section.links.map((link) => (
