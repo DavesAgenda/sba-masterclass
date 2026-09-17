@@ -1,5 +1,6 @@
 import { informationPages, type InformationPage } from "@/content/information";
 import { siteConfig, siteUrl } from "./site-config";
+import { clipShareUrl } from "@/content/video";
 
 const absolute = (url: string) =>
   url.startsWith("/") ? `${siteUrl}${url}` : url;
@@ -15,6 +16,10 @@ export function pageMarkdown(page: InformationPage) {
             ? [section.items.map((item) => `- ${item}`).join("\n")]
             : []),
           ...(section.code ? [`\`\`\`text\n${section.code}\n\`\`\``] : []),
+          ...(section.video ? [
+            `Video: [${section.video.title}](${clipShareUrl(section.video)}) (${section.video.duration}; source ${section.video.sourceTime}).`,
+            section.video.summary,
+          ] : []),
           ...(section.links?.length
             ? [
                 section.links
@@ -34,7 +39,7 @@ export const homeMarkdown = `# Sites by Agents
 
 Canonical: ${siteUrl}/
 
-The interactive book teaches five stages: brief an agent, run and refine a local project, save it in GitHub, deploy to hosting, and connect a domain. You make the decisions and keep control of your accounts and source code.
+The interactive book teaches five stages from the recorded masterclass: plan in ChatGPT and brief Codex, let Codex build and preview, ask it to save to GitHub, deploy with Vercel, and connect a domain. The written guide also covers reviewing and publishing later updates. Codex handles the local server and GitHub commands; you choose the direction and check the result.
 
 ## Read and build
 

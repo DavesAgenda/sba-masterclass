@@ -1,8 +1,11 @@
 import { steps } from "./tutorial";
 import { prompts, starterPrompt } from "./prompts";
 import { siteConfig } from "@/lib/site-config";
+import { lessonClips, type LessonClip } from "./video";
 
 export type Section = {
+  id?: string;
+  video?: LessonClip;
   title: string;
   paragraphs?: string[];
   items?: string[];
@@ -135,8 +138,21 @@ export const informationPages: InformationPage[] = [
     title: "The complete website-building guide.",
     description:
       "A readable, step-by-step guide to briefing an AI agent, testing locally, using GitHub, deploying and connecting your domain.",
-    sections: steps
+    sections: [
+      {
+        id: "clips",
+        title: "Follow the recording, one step at a time",
+        paragraphs: [
+          "This is the walkthrough from the 17 September 2026 masterclass, written for people who do not code. ChatGPT helps you plan; Codex builds the site, runs the preview and handles the GitHub work. You choose the direction, connect your accounts and check the result.",
+          "The short clips below show key moments from the stream. The prompts are reusable examples adapted from the demonstration. You can follow the written steps without watching the whole recording.",
+        ],
+        video: lessonClips.tools,
+        links: [{ label: "Watch the full masterclass", href: siteConfig.webinarUrl }],
+      },
+      ...steps
       .map((step) => ({
+        id: step.id,
+        video: lessonClips[step.id],
         title: `${step.number}. ${step.title}`,
         paragraphs: [
           step.objective,
@@ -151,8 +167,31 @@ export const informationPages: InformationPage[] = [
             ? [{ label: "Copy the starter prompt", href: "/prompts" }]
             : []),
         ],
-      }))
-      .concat([
+      })),
+        {
+          id: "updates",
+          title: "After launch: preview a change, then make it live",
+          paragraphs: [
+            "Dave added the logo and information pages after the first launch. Codex made the changes on a feature branch: a separate version for review. Vercel gave that version a preview address. In this project, main was the version connected to the live site.",
+          ],
+          items: [
+            "Tell Codex what to change and ask it to create a feature branch, check the work and send it to GitHub.",
+            "Open the branch’s preview in Vercel. Check the content, links and phone layout. Ask Codex for any fixes.",
+            "When you are happy, tell Codex: ‘Merge to main and clean up the branch.’ Codex handled the merge and cleanup in the stream.",
+            "Wait for Vercel to finish publishing, then check your real website address too.",
+          ],
+          video: lessonClips.updates,
+          links: [{ label: "Copy the update prompts", href: "/prompts" }],
+        },
+        {
+          title: "Dive deeper: what Codex was doing behind the scenes",
+          paragraphs: [
+            "You do not need these commands to follow the masterclass. A local server is a temporary preview running on your computer. An address such as localhost:3000 points to that preview; it is not your public website.",
+            "In a project like this one, npm install gets the software it needs, npm run dev starts the preview, and npm run build checks that the site can be prepared for hosting. Ask Codex to run them and explain the result. Commands vary by project.",
+            "A repository holds your files and history. A commit saves a snapshot; a push sends it to GitHub. Codex performed these operations after Dave connected GitHub and supplied the repository URL.",
+          ],
+          code: "npm install\nnpm run dev\n# A separate check before publishing:\nnpm run build",
+        },
         {
           title: "Keep moving at your own pace",
           paragraphs: [
@@ -165,7 +204,7 @@ export const informationPages: InformationPage[] = [
             { label: "Get help", href: "/get-help" },
           ],
         },
-      ]),
+      ],
   },
   {
     slug: "prompts",
@@ -207,13 +246,13 @@ export const informationPages: InformationPage[] = [
       {
         title: "Do I need to know how to code?",
         paragraphs: [
-          "You can start by describing the site in ordinary language. You will still need to follow setup instructions, review changes and test the result. The written guide gives you a sequence to follow.",
+          "No coding knowledge is needed to follow this walkthrough. In the stream, Codex wrote the code, ran the local preview and handled GitHub commands. You describe what you want, connect your accounts, follow any setup prompts and check the result.",
         ],
       },
       {
         title: "Which agent and hosting platform should I use?",
         paragraphs: [
-          "Use a coding agent that can work with your project files and explain its changes. The guide uses GitHub and Vercel as examples. Check the current capabilities, pricing and terms of any tool you choose; the site does not require one particular provider.",
+          "To follow the recording, use ChatGPT for planning, Codex for building, GitHub for the saved files and Vercel for hosting. Other tools can work, but their setup will differ. Check the plans and terms for the tools you choose.",
         ],
       },
       {

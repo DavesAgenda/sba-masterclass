@@ -1805,6 +1805,16 @@ button:hover:not(:disabled) {
 .information-sections .copy-block {
   margin: 20px 0;
 }
+.lesson-video { margin: 24px 0; }
+.lesson-video-player { aspect-ratio: 16 / 9; background: #102235; overflow: hidden; }
+.lesson-video-player iframe { width: 100%; height: 100%; border: 0; }
+.lesson-video-player button { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; padding: 18px; color: #fff; background: transparent; border: 1px solid #526b7b; cursor: pointer; font: inherit; }
+.lesson-video-player button > span:first-child { color: #ff9248; font-size: 28px; }
+.lesson-video-player button:focus-visible { outline: 3px solid #ff9248; outline-offset: -4px; }
+.lesson-video figcaption { font-size: 13px; }
+.lesson-video figcaption > span { display: block; margin-top: 8px; color: var(--slate); }
+.lesson-video figcaption a { text-decoration: underline; }
+.information-sections > section { scroll-margin-top: 24px; }
 .information-links {
   display: flex;
   flex-wrap: wrap;

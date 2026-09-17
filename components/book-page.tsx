@@ -62,8 +62,8 @@ export function BookPageContent({
       {kind === "intro" && (
         <>
           <p className="book-lead">
-            A practical, step-by-step guide based on our live webinar. Learn the
-            process, try the prompts and publish your site.
+            Follow the recorded masterclass, from idea to live site. You choose
+            the design and review the result. Codex handles the technical work.
           </p>
           <div className="book-mini-flow">
             <span>
@@ -127,7 +127,7 @@ export function BookPageContent({
                         {s.name === "Prompt"
                           ? "Your idea + an agent"
                           : s.name === "Build"
-                            ? "Your local project"
+                            ? "Codex builds and previews"
                             : s.name === "Deploy"
                               ? "Vercel"
                               : s.name === "Domain"
@@ -164,8 +164,8 @@ export function BookPageContent({
           </ol>
           {kind === "build" && (
             <CopyBlock
-              text={"npm install\nnpm run dev"}
-              label="In your project folder"
+              text={step.snippet!}
+              label="Ask Codex"
             />
           )}
           {kind === "brief" && (
@@ -286,6 +286,7 @@ export function BookPageContent({
             Follow the full process, from prompt to domain.
           </p>
           <BookVideo decorative={decorative} />
+          <Link className="book-source" href="/guide#clips">Watch the short clips with the written guide <ArrowUpRight aria-hidden="true" size={14} /></Link>
           <ul className="book-checks">
             <li>
               <Check aria-hidden="true" />
@@ -389,15 +390,15 @@ export function BookPageContent({
       {kind === "tools" && (
         <>
           <p className="book-deck">
-            These are examples, not permanent vendor choices. The useful model
-            is agent → Git → host → domain.
+            The stream used ChatGPT to plan, Codex to build, GitHub to save
+            the files, and Vercel to put the site online.
           </p>
           <dl className="book-tools">
             {[
               [
                 "Build",
-                "Codex / Claude Code",
-                "A coding agent helps you write and refine the site.",
+                "Codex",
+                "Builds, runs the preview and handles GitHub work after connection.",
               ],
               ["Source", "GitHub", "Your source files and version history."],
               ["Host", "Vercel", "Publishes the website for visitors."],
@@ -430,8 +431,8 @@ export function BookPageContent({
       {kind === "about" && (
         <>
           <p className="book-lead">
-            Start with one useful page. Improve it, commit it, push it. Your
-            website can grow with you.
+            Start with one useful page. Ask Codex for changes, review the
+            preview, then ask it to publish the update.
           </p>
           <div className="about-mark">
             <Box aria-hidden="true" size={60} strokeWidth={1} />
@@ -454,6 +455,7 @@ export function BookPageContent({
           </button>
           <Link className="book-source book-advice-link" href="/get-help">Overwhelmed, or ready for more? Talk to Valid Agenda <ArrowUpRight aria-hidden="true" size={16} /></Link>
           <Link className="book-source" href="/about">About this project <ArrowUpRight aria-hidden="true" size={14} /></Link>
+          <Link className="book-source" href="/guide#updates">How to update your live site <ArrowUpRight aria-hidden="true" size={14} /></Link>
           <p className="handwritten">
             Your next chapter
             <br />
