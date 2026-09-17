@@ -39,7 +39,7 @@ export const homeMarkdown = `# Sites by Agents
 
 Canonical: ${siteUrl}/
 
-The interactive book teaches five stages from the recorded masterclass: plan in ChatGPT and brief Codex, let Codex build and preview, ask it to save to GitHub, deploy with Vercel, and connect a domain. The written guide also covers reviewing and publishing later updates. Codex handles the local server and GitHub commands; you choose the direction and check the result.
+The interactive book teaches five stages from the recorded masterclass: plan in ChatGPT and brief Codex, let Codex build and preview, ask it to save to GitHub, deploy with Vercel, and connect a domain. Both the book and written guide include six lesson clips and cover reviewing and publishing later updates. Codex handles the local server and GitHub commands; you choose the direction and check the result.
 
 ## Read and build
 

@@ -22,6 +22,8 @@ import { starterPrompt, prompts } from "@/content/prompts";
 import { steps } from "@/content/tutorial";
 import { siteConfig, youtubeEmbedUrl } from "@/lib/site-config";
 import { CopyBlock } from "./prompt-card";
+import { LessonVideo } from "./lesson-video";
+import { lessonClips } from "@/content/video";
 
 export function BookPageContent({
   page,
@@ -35,6 +37,8 @@ export function BookPageContent({
   const data = bookPages[page];
   if (!data) return null;
   const kind = data.kind;
+  const clipKey = ({ process: "tools", brief: "prompt", github: "github", deploy: "deploy", domain: "domain", "publish-update": "updates" } as Record<string, string>)[kind];
+  const clip = clipKey ? lessonClips[clipKey] : undefined;
   const step = steps.find(
     (s) =>
       s.id ===
@@ -87,7 +91,7 @@ export function BookPageContent({
             </span>
           </div>
           <div className="book-actions">
-            <button className="book-button orange" onClick={() => navigate(10)}>
+            <button className="book-button orange" onClick={() => navigate(12)}>
               <Play aria-hidden="true" size={16} />
               Watch the webinar
             </button>
@@ -303,6 +307,25 @@ export function BookPageContent({
           </ul>
         </>
       )}
+      {kind === "updates" && (
+        <>
+          <p className="book-deck">A feature branch is a separate version of your site to try a change. Your live site stays as it is while you review.</p>
+          <ol className="book-instructions">
+            <li>Tell Codex what you want changed. In the stream, Dave added the logo and information pages.</li>
+            <li>Ask Codex to create a feature branch, make the changes, check them and save the branch to GitHub.</li>
+            <li>Open that branch’s preview in Vercel. Read it and try the links on a phone and a computer.</li>
+            <li>Ask for fixes until you are happy. Then turn the page to publish.</li>
+          </ol>
+          <CopyBlock text={prompts[5].text} label="Ask Codex for a preview" />
+        </>
+      )}
+      {kind === "publish-update" && (
+        <>
+          <p className="book-deck">In this project, main is the version Vercel puts on the live website. You decide when the preview is ready to replace it.</p>
+          <CopyBlock text={prompts[6].text} label="After you have checked the preview" />
+          <p className="book-note">Wait for Vercel to finish publishing. Open your real website address and check the result there too.</p>
+        </>
+      )}
       {["mobile", "design", "preflight"].includes(kind) && (
         <>
           <p className="book-deck">
@@ -463,6 +486,7 @@ export function BookPageContent({
           </p>
         </>
       )}
+      {clip && <LessonVideo clip={clip} compact decorative={decorative} />}
       <div className="page-bottom">
         <span>{String(page + 1).padStart(2, "0")}</span>
         <span>SITES BY AGENTS</span>

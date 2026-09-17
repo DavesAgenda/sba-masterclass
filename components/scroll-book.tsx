@@ -12,6 +12,7 @@ import { ValidAgendaLogo } from "./valid-agenda-logo";
 import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 import { bookPages, bookNavigation } from "@/content/book";
 import { BookPageContent } from "./book-page";
+import { canScrollInDirection, wheelPixels } from "@/lib/book-scroll";
 
 const mobileQuery = "(max-width: 900px)";
 function subscribeMobile(callback: () => void) {
@@ -129,7 +130,76 @@ export function ScrollBook() {
         navigate(Math.max(0, Math.min(viewCount - 1, next)) * unit);
       }
     };
+    let boundaryDelta = 0;
+    let lastWheelAt = 0;
+    // Hidden overflow on the decorative book ancestors can swallow native
+    // scroll chaining. Handle the boundary explicitly, while letting the
+    // browser scroll the readable page (and nested code blocks) normally.
+    const readerAtBoundary = (target: EventTarget | null, delta: number) => {
+      if (!(target instanceof Element)) return false;
+      const reader = target.closest<HTMLElement>(".book-spread .paper-content");
+      if (!reader || target.closest('input,textarea,select,[contenteditable="true"]')) return false;
+      let nested: Element | null = target;
+      while (nested && nested !== reader) {
+        if (/auto|scroll/.test(getComputedStyle(nested).overflowY) && canScrollInDirection(nested, delta)) return false;
+        nested = nested.parentElement;
+      }
+      return !canScrollInDirection(reader, delta);
+    };
+    const turnAtBoundary = (delta: number) => {
+      const next = Math.max(0, Math.min(viewCount - 1, current.current + Math.sign(delta)));
+      if (next !== current.current) navigate(next * unit);
+    };
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || event.metaKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      if (busy.current && event.target instanceof Element && event.target.closest(".open-book")) {
+        event.preventDefault();
+        boundaryDelta = 0;
+        return;
+      }
+      const delta = wheelPixels(event.deltaY, event.deltaMode, window.innerHeight);
+      if (!delta || !readerAtBoundary(event.target, delta)) {
+        boundaryDelta = 0;
+        return;
+      }
+      event.preventDefault();
+      const now = performance.now();
+      const gap = now - lastWheelAt;
+      lastWheelAt = now;
+      if (busy.current) { boundaryDelta = 0; return; }
+      if (gap > 180 || Math.sign(boundaryDelta) !== Math.sign(delta)) boundaryDelta = 0;
+      boundaryDelta += delta;
+      if (Math.abs(boundaryDelta) >= 60) {
+        boundaryDelta = 0;
+        turnAtBoundary(delta);
+      }
+    };
+    let touchY: number | null = null;
+    let touchDelta = 0;
+    let touchTurned = false;
+    const onTouchStart = (event: TouchEvent) => {
+      touchY = event.touches.length === 1 ? event.touches[0].clientY : null;
+      touchDelta = 0;
+      touchTurned = false;
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      if (touchY === null || event.touches.length !== 1) return;
+      const delta = touchY - event.touches[0].clientY;
+      touchY = event.touches[0].clientY;
+      if (!readerAtBoundary(event.target, delta)) { touchDelta = 0; return; }
+      if (event.cancelable) event.preventDefault();
+      if (busy.current || touchTurned) return;
+      if (Math.sign(touchDelta) !== Math.sign(delta)) touchDelta = 0;
+      touchDelta += delta;
+      if (Math.abs(touchDelta) >= 60) {
+        touchTurned = true;
+        turnAtBoundary(delta);
+      }
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("resize", onResize);
     window.addEventListener("keydown", onKey);
     if (previousUnit.current !== unit) {
@@ -146,6 +216,9 @@ export function ScrollBook() {
     onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKey);
       cancelAnimationFrame(frame);
@@ -310,7 +383,7 @@ export function ScrollBook() {
             <span className="scroll-cue">
               {active === viewCount - 1
                 ? "YOUR NEXT CHAPTER STARTS HERE"
-                : "SCROLL TO TURN THE PAGE"}
+                : "SCROLL TO READ · KEEP SCROLLING TO TURN"}
               <ChevronDown aria-hidden="true" size={15} />
             </span>
           </div>

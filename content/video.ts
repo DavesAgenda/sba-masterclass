@@ -1,6 +1,7 @@
 export type LessonClip = {
   title: string;
   shareId: string;
+  youtubeId?: string;
   sourceTime: string;
   duration: string;
   summary: string;
@@ -34,4 +35,10 @@ export const lessonClips: Record<string, LessonClip> = {
   },
 };
 
-export const clipShareUrl = (clip: LessonClip) => `https://share.descript.com/view/${clip.shareId}`;
+export const clipShareUrl = (clip: LessonClip) => clip.youtubeId
+  ? `https://www.youtube.com/watch?v=${clip.youtubeId}`
+  : `https://share.descript.com/view/${clip.shareId}`;
+
+export const clipEmbedUrl = (clip: LessonClip) => clip.youtubeId
+  ? `https://www.youtube-nocookie.com/embed/${clip.youtubeId}?rel=0`
+  : `https://share.descript.com/embed/${clip.shareId}`;

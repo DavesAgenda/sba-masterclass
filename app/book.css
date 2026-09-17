@@ -1814,6 +1814,9 @@ button:hover:not(:disabled) {
 .lesson-video figcaption { font-size: 13px; }
 .lesson-video figcaption > span { display: block; margin-top: 8px; color: var(--slate); }
 .lesson-video figcaption a { text-decoration: underline; }
+.lesson-video-compact { margin: 18px 0; }
+.lesson-video-compact .lesson-video-player button { gap: 8px; font-size: 13px; }
+.lesson-video-compact figcaption { padding-top: 8px; font-size: 11px; line-height: 1.5; }
 .information-sections > section { scroll-margin-top: 24px; }
 .information-links {
   display: flex;
