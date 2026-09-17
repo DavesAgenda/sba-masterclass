@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig, siteUrl } from "@/lib/site-config";
 import "./book.css";
 import { StructuredData } from "@/components/structured-data";
+import { socialImage } from "@/lib/social-metadata";
 
 const title = "Sites by Agents - Build and Launch Your Own Website";
 export const metadata: Metadata = {
@@ -19,8 +20,9 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     type: "website",
     locale: "en_AU",
+    images: [socialImage],
   },
-  twitter: { card: "summary", title, description: siteConfig.description },
+  twitter: { card: "summary_large_image", title, description: siteConfig.description, images: [socialImage] },
 };
 export default function RootLayout({
   children,

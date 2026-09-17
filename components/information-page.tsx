@@ -6,6 +6,7 @@ import { ValidAgendaLogo } from "./valid-agenda-logo";
 import { CopyBlock } from "./prompt-card";
 import { StructuredData } from "./structured-data";
 import { LessonVideo } from "./lesson-video";
+import { socialImage } from "@/lib/social-metadata";
 
 export function informationMetadata(slug: string): Metadata {
   const page = informationPage(slug);
@@ -21,9 +22,11 @@ export function informationMetadata(slug: string): Metadata {
       description: page.description,
       url: `${siteUrl}/${slug}`,
       type: "website",
+      images: [socialImage],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
+      images: [socialImage],
       title: page.title,
       description: page.description,
     },
