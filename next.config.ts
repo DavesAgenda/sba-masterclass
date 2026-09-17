@@ -18,8 +18,8 @@ const nextConfig: NextConfig = {
     return pages.map((page) => ({
       source: page ? `/${page}` : "/",
       headers: [
-        // Declare this at the CDN layer as well as Proxy: static HTML delivery
-        // on Vercel can replace headers set by NextResponse.next().
+        // Request format variation where supported. Vercel's static HTML layer
+        // supplies its own Vary; its CDN includes Accept in the cache key.
         { key: "Vary", value: "Accept, RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch" },
         {
           key: "Link",

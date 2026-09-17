@@ -59,7 +59,19 @@ for (const slug of ["", ...pages]) {
     /rel="alternate"; type="text\/markdown"/,
   );
   const html = await response.text();
-  assert.match(response.headers.get("vary"), /Accept/i);
+  // Vercel replaces static HTML Vary but keys its CDN by Accept and requires
+  // downstream caches to revalidate. Negotiated Markdown always varies by Accept.
+  if (!/Accept/i.test(response.headers.get("vary") || "")) {
+    assert.match(response.headers.get("cache-control"), /max-age=0/);
+    assert.match(response.headers.get("cache-control"), /must-revalidate/);
+  }
+  const htmlEtag = response.headers.get("etag");
+  if (htmlEtag) {
+    const alternate = await fetch(`${base}/${slug}`, { headers: { Accept: "text/markdown", "If-None-Match": htmlEtag } });
+    assert.equal(alternate.status, 200, `${slug}: HTML etag must not validate Markdown`);
+    assert.match(alternate.headers.get("content-type"), /text\/markdown/);
+    assert.equal(await alternate.text(), results.get(`${slug || "index"}.md`));
+  }
   assert.match(html, /property="og:image"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   const canonicalTag = html.match(/<link[^>]*rel="canonical"[^>]*>/)?.[0];
